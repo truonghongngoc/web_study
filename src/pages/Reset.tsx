@@ -1,36 +1,70 @@
 import { useCallback, useState } from "react";
 import Input from "../component/Input";
 import { useNavigate } from "react-router-dom";
-// import Button from "../component/Button";
+import * as yup from "yup";
+export type ErrorsFormValue = {
+  [key: string]: {
+    message: string;
+  };
+};
+export const schemaReset = yup.object().shape({
+ 
+    password: yup.string().required(),
+    confirmPassword: yup.string().required(),
+});
+type TResetFormValue = yup.InferType<typeof schemaReset>;
+export const defaultReset: TResetFormValue = {
 
+  password: "",
+  confirmPassword: "",
+};
 export const Reset = () => {
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
-  const handleSubmit = useCallback(() => {
-    const newErrors = {};
-    if (passwordConfirm === "") {
-      newErrors.passwordConfirm = "Truong hop nay bat buoc";
+  const [formValue, setFormValue] = useState(defaultReset);
+  const [errors, setErrors] = useState<ErrorsFormValue>({});
+  const validation = useCallback(() => {
+    setErrors({});
+    try {
+      schemaReset.validateSync(formValue, { abortEarly: false });
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        if (error.inner) {
+          const newErrors: ErrorsFormValue = {};
+          error.inner.forEach((err) => {
+            if (err.path && err.message) {
+              newErrors[err.path] = { message: err.message };
+            }
+          });
+          setErrors(newErrors);
+          return false;
+        }
+      }
     }
-    if (password === "") {
-      newErrors.password = "Trường hợp này bắt buộc";
-    }
-    if (password !==passwordConfirm  ) {
-      newErrors.passwordConfirm = "Mật khẩu không khớp";
-    }
-    setErrors({ ...newErrors });
-    if (!Object.keys(newErrors).length) {
+    return true;
+  }, [formValue]);
+  function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
+    setFormValue({
+      ...formValue,
+      password : e.target.value,
+    });
+  }
+  function handleChangeConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
+    setFormValue({
+      ...formValue,
+    confirmPassword: e.target.value,
+    });
+  }
+  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    if (validation()) {
       navigate("/sign-in");
     }
-  }, [password, passwordConfirm]);
-
+  }
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
+     
+        handleSubmit(e);
       }}
     >
     
@@ -54,19 +88,19 @@ export const Reset = () => {
               <div className="input-1">
                 <Input
                  placeholder="Password"
-                       value={password}
-                       onChange={(e) => setPassword(e.target.value)}
+                       value={formValue.password}
+                       onChange={(e) => handleChangePassword(e)}
                 ></Input>
-                 <label>{errors?.password}</label>
+                 <label>{errors?.password?.message}</label>
               
               </div>
               <div className="input-2">
                 <Input
                  placeholder="Confirm new password"
-                       value={passwordConfirm}
-                       onChange={(e) => setPasswordConfirm(e.target.value)}
+                       value={formValue.confirmPassword}
+                       onChange={(e) => handleChangeConfirmPassword(e)}
                 ></Input>
-                 <label>{errors?.passwordConfirm}</label>
+                 <label>{errors?.confirmPassword?.message}</label>
              
                 <button className="btn-login">Submit</button><br></br><br></br>
                 <a  className=" lg-reset" href="/sign-in">Login</a>

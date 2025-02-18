@@ -1,29 +1,60 @@
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Input from "../component/Input";
-// import Button from "../component/Button";
+import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-// import { Link, useNavigate } from "react-router-dom";
 
-export const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [errors, setErrors] = useState({});
+export type ErrorsFormValue = {
+  [key: string]: {
+    message: string;
+  };
+};
+export const schemaForgot = yup.object().shape({
+  email: yup.string().required().email(),
+});
+type TForgotFormValue = yup.InferType<typeof schemaForgot>;
+export const defaultForgot: TForgotFormValue = {
+  email: "",
+};
+export const Forgot = () => {
   const navigate = useNavigate();
-  const handleSubmit = useCallback(() => {
-    const newErrors = {};
-    if (email && phone === "") {
-      newErrors.email = "Trường hợp này bắt buộc";
+  const [formValue, setFormValue] = useState(defaultForgot);
+  const [errors, setErrors] = useState<ErrorsFormValue>({});
+  const validation = useCallback(() => {
+    setErrors({});
+    try {
+      schemaForgot.validateSync(formValue, { abortEarly: false });
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        if (error.inner) {
+          const newErrors: ErrorsFormValue = {};
+          error.inner.forEach((err) => {
+            if (err.path && err.message) {
+              newErrors[err.path] = { message: err.message };
+            }
+          });
+          setErrors(newErrors);
+          return false;
+        }
+      }
     }
-    setErrors({ ...newErrors });
-    if (!Object.keys(newErrors).length) {
-      navigate("/confirm");
+    return true;
+  }, [formValue]);
+  function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
+    setFormValue({
+      ...formValue,
+      email: e.target.value,
+    });
+  }
+  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    if (validation()) {
+      navigate("/sign-in");
     }
-  }, [email, phone]);
+  }
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
+        handleSubmit(e);
       }}
     >
       <div className="container">
@@ -47,19 +78,17 @@ export const SignIn = () => {
             <div className="input-1">
               <Input
                 placeholder="Email / Phone number"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formValue.email}
+                onChange={(e) => handleChangeEmail(e)}
               ></Input>
-              <label>{errors?.email}</label>
+              <label>{errors?.email?.message}</label>
             </div>
 
             <div>
               <button type="submit" className="btn-login">
                 Submit
               </button>
-         
             </div>
-           
           </div>
         </div>
       </div>
@@ -67,4 +96,4 @@ export const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Forgot;
