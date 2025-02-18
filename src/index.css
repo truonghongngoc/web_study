@@ -116,9 +116,30 @@ hr{
 .fget a{
   margin-top:30px;
 }
+
+.btn-loginw-divider {
+  width: 1px;
+  background-color: #D9DFE6;
+  height: 28px;
+  margin-left: 24px;
+}
+
+.btn-loginw-box1 {
+  display: flex;
+  width: 78px;
+  margin-left: 26px;
+}
+.btn-loginw-label {
+  margin-left: -78px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .btn-loginw {
 
-
+  display: flex;
+  align-items: center;
  background-color: #ffffff;
  width: 505px;
  border:1px solid rgb(203, 203, 203);
