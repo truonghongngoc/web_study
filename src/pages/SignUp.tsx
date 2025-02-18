@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import Input from "../component/Input";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import '../index.css'
 // import Button from "../component/Button";
 export type ErrorsFormValue = {
   [key: string]: {

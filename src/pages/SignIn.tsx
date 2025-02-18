@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import Input from "../component/Input";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-// import { Link, useNavigate } from "react-router-dom";
+import '../index.css'
 
 export type ErrorsFormValue = {
   [key: string]: {
@@ -20,8 +20,6 @@ export const defaultSignin: SigninFormValue = {
 
 };
 export const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(defaultSignin);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
@@ -57,7 +55,7 @@ export const SignIn = () => {
       ...formValue,
       password: e.target.value,
     });
-  };
+  }
   function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     if (validation()) {
@@ -117,7 +115,7 @@ export const SignIn = () => {
             <br></br>
             <hr></hr>
             <div>
-            <div className="img">
+              <div className="img">
                 <button className="btn-loginw">
                   <div className="btn-loginw-box1">
                     <img src="src/image/logo/Master/Social Media - Logos.png" alt="" />
@@ -136,7 +134,7 @@ export const SignIn = () => {
                     <div className="btn-loginw-divider"></div>
                   </div>
                   <p className="btn-loginw-label">
-                  Login with Facebook
+                    Login with Facebook
                   </p>
                 </button>
                 {/* <button type="submit" className="btn-loginw">Login with google</button> */}
@@ -148,7 +146,7 @@ export const SignIn = () => {
                     <div className="btn-loginw-divider"></div>
                   </div>
                   <p className="btn-loginw-label">
-                  Login with Apple
+                    Login with Apple
                   </p>
                 </button>
                 {/* <button type="submit" className="btn-loginw">Login with google</button> */}
