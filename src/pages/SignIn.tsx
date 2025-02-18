@@ -1,32 +1,73 @@
 import { useCallback, useState } from "react";
 import Input from "../component/Input";
-import Button from "../component/Button";
+import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 // import { Link, useNavigate } from "react-router-dom";
 
+export type ErrorsFormValue={
+  [key: string]:{
+    message: string;
+  };
+};
+export const schemaSignin=yup.object().shape({
+  email:yup.string().required().email(),
+  password:yup.string().required(),
+})
+type SigninFormValue=yup.InferType<typeof schemaSignin>;
+export const defaultSignin:SigninFormValue={
+  email:"",
+  password:""
+
+};
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
-  const handleSubmit = useCallback(() => {
-    const newErrors = {};
-    if (email === "") {
-      newErrors.email = "Trường hợp này bắt buộc";
+  const navigate=useNavigate();
+  const [formValue,setFormValue]=useState(defaultSignin);
+  const [errors, setErrors] = useState<ErrorsFormValue>({});
+ const validation=useCallback(()=>{
+  setErrors({});
+  try{
+    schemaSignin.validateSync(formValue,{abortEarly:false});
+  }
+  catch(error){
+    if(error instanceof yup.ValidationError){
+      if(error.inner){
+        const newErrors: ErrorsFormValue={};
+        error.inner.forEach((err)=>{
+          if(err.path && err.message){
+            newErrors[err.path]={message :err.message};
+          }
+        });
+        setErrors(newErrors);
+        return false;
+      }
     }
-    if (password === "") {
-      newErrors.password = "Trường hợp này bắt buộc";
+  }
+  return true;
+ },[formValue]);
+ function handleChangeEmail(e:React.ChangeEvent<HTMLInputElement>){
+  setFormValue({
+    ...formValue,
+    email:e.target.value,
+  });
+}
+  function handleChangePassword(e:React.ChangeEvent<HTMLInputElement>){
+    setFormValue({
+      ...formValue,
+      password:e.target.value,
+    });
+  };
+  function handleSubmit(e:React.ChangeEvent<HTMLInputElement>){
+    e.preventDefault();
+    if(validation()){
+      navigate("/#")
     }
-    setErrors({ ...newErrors });
-    if (!Object.keys(newErrors).length) {
-      navigate("/");
-    }
-  }, [email, password]);
+  }
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
+        handleSubmit(e);
       }}>
   <div className="container">
     <div className="container-left">
@@ -48,19 +89,19 @@ export const SignIn = () => {
         <div className="input-1">
           <Input
            placeholder="Email"
-                 value={email}
-                 onChange={(e) => setEmail(e.target.value)}
+                 value={formValue.email}
+                 onChange={(e) => handleChangeEmail(e)}
           ></Input>
-           <label >{errors?.email}</label>
+           <label >{errors?.email?.message}</label>
         
         </div>
         <div className="input-2">
           <Input
            placeholder="Password"
-                 value={password}
-                 onChange={(e) => setPassword(e.target.value)}
+                 value={formValue.password}
+                 onChange={(e) => handleChangePassword(e)}
           ></Input>
-           <label>{errors?.password}</label>
+           <label>{errors?.password?.message}</label>
           {/* <p className="text-error">Message</p> */}
         </div>
         <div className="checkbox">
