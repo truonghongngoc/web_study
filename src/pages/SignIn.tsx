@@ -2,8 +2,10 @@ import { useCallback, useState } from "react";
 // import Input from "../component/Input";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import "../index.css";
+// import "../index.css";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
+import { Checkbox } from "../components/ui/checkbox"
+
 
 export type ErrorsFormValue = {
   [key: string]: {
@@ -62,7 +64,9 @@ export const SignIn = () => {
     }
   }
   return (
-    <form
+    <Box
+      as="form"
+      bg="#F7FAFC"
       onSubmit={(e) => {
         handleSubmit(e);
       }}
@@ -70,224 +74,204 @@ export const SignIn = () => {
       <Box
         w={"100%"}
         h={"100vh"}
-        display={"flex"}
-    
+        marginX="auto"
+        maxW={"1440px"}
+
+        display={{ base: "block", xl: "flex" }}
       >
-        <Box  padding={"30px"}>
+        <Box w={"720px"} padding={"30px"} display={{ xl: "block", base: "none" }}>
           <Image
-          width={"100%"}
-          height={"auto"}
-            // padding={"30px"}
-            // border-radius={"24px"}
+            width={"100%"}
+            height={"auto"}
             src="src/image/signup/Desktop/Placeholder Auth.png"
           ></Image>
         </Box>
-      
-
-        <Box width="760px">
-          <Box>
+        <Box flex={1}>
+          <Box display={"flex"} justifyContent={{ xl: "flex-end", base: "flex-start" }}>
             <Image
-               float={"right"}
-               padding={"40px"}
+              marginTop={{ xl: "40px", base: "16px" }}
+              marginRight={"40px"}
+              marginLeft={{ base: "24px" }}
+              marginBottom={{ base: "16px" }}
               src="src/image/App Logo.png"
             ></Image>
           </Box>
-          <Box
-            // marginLeft={"auto"}
-            // marginRight={"auto"}
-            width={"500px"}
-          ></Box>
-          <Text textStyle={"5xl"} marginTop={"100px"} marginLeft={"300px"}>
-            Login
-          </Text>
-
-          <Text
-            // marginLeft={"120px"}
-            line-height={"24px"}
-            letter-spacing={"0%"}
-            marginTop={"15px"}
-            textAlign={"center"}
-            color={" #808B9A"}
-          >
-            Welcome back ! Please enter your detail .
-          </Text>
-          <Box
-          marginTop={"50px"} 
-          marginLeft={"150px"} width={"480px"}>
-            <Input
-              height={"54px"}
-              border={"2px solid #D1E6FF"}
-              borderRadius={"10px"}
-              placeholder="Email"
-              value={formValue.email}
-              onChange={(e) => handleChangeEmail(e)}
-            />
-
-            <label>{errors?.email?.message}</label>
+          <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
+            <Image
+              width={"auto"}
+              height={"240px"}
+              src="src/image/background-sign-in-sp.png"
+            ></Image>
           </Box>
-          <Box
-          marginTop={"40px"}
-          marginLeft={"150px"} width={"480px"} >
-            <Input
-              height={"54px"}
-
-              border={"2px solid #D1E6FF"}
-              borderRadius={"10px"}
-              placeholder="Password"
-              value={formValue.password}
-              onChange={(e) => handleChangePassword(e)}
-            />
-            <br></br>
-            <label>{errors?.password?.message}</label>
-            {/* <p className="text-error">Message</p> */}
-          </Box>
-          <Box marginLeft={"150px"} >
-            <Input width={"5px"} 
-           
-            type="checkbox" />
-            <label className="rm"  for="vehicle1">
-              Remember information
-            </label>
-          </Box>
-          <Box>
-            <Button
-              backgroundColor={" #1B85F3"}
-              width={"480px"}
-              borderRadius={"8px"}
-              type="submit"
-              height={"50px"}
-              marginTop={"30px"}
-              marginLeft={"155px"}
-            >
+          <Box bg={{ base: "white", xl: "initial" }} borderRadius={"32px"} maxWidth={"440px"} mx="auto" w={"100%"} px="24px">
+            <Text fontSize={"5xl"} marginTop={"25px"} textAlign={"center"}>
               Login
-            </Button>
-          </Box>
-          <br></br>
-          <Box marginLeft={"350px"} color={"#1B85F3"}>
-            <a href="/reset">Forget password?</a>
-          </Box>
-          <br></br>
-          <hr></hr>
-          <Box>
-            <Box marginLeft={"5px"}>
-              <Box >
-                <Button
-                  display={"flex"}
-                  marginTop={"30px"}
-                  backgroundColor={"#ffffff"}
-                  width={"480px"}
-                  border={"1px solid rgb(203, 203, 203)"}
-                  color={"rgb(134, 134, 134)"}
-                  height={"50px"}
-                  
-                  marginLeft={"150px"}
-                  borderRadius={"10px"}
-                >
-                  <Box display={"flex"} width={"260px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
-                    <Box
-                      
-                      background-color={"#D9DFE6"}
-                      height={"28px"}
-                      margin-left={"24px"}
-                    ></Box>
-                  </Box>
-                  <Text
-                    margin-left={"-78px"}
-                    display={"flex"}
-                    justify-content={"center"}
-                    width={"100%"}
-                  >
-                    Login with Facebook
-                  </Text>
-                </Button>
-                {/* <button type="submit" className="btn-loginw">Login with google</button> */}
-              </Box>
-
-              <Box>
-                <Button
-                  display={"flex"}
-                  marginTop={"30px"}
-                  backgroundColor={"#ffffff"}
-                  width={"480px"}
-                  border={"1px solid rgb(203, 203, 203)"}
-                  color={"rgb(134, 134, 134)"}
-                  height={"50px"}
-                  borderRadius={"10px"}
-                  marginLeft={"150px"}
-                >
-                  <Box display={"flex"} width={"260px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
-                    <Box
-                      width={"1px"}
-                      background-color={"#D9DFE6"}
-                      height={"28px"}
-                      margin-left={"24px"}
-                    ></Box>
-                  </Box>
-                  <Text
-                    margin-left={"-78px"}
-                    display={"flex"}
-                    justify-content={"center"}
-                    width={"100%"}
-                  >
-                    Login with Facebook
-                  </Text>
-                </Button>
-                {/* <button type="submit" className="btn-loginw">Login with google</button> */}
-              </Box>
-              <Box>
-                <Button
-                  display={"flex"}
-                  marginTop={"30px"}
-                  backgroundColor={"#ffffff"}
-                  width={"480px"}
-                  border={"1px solid rgb(203, 203, 203)"}
-                  color={"rgb(134, 134, 134)"}
-                  height={"50px"}
-                  borderRadius={"10px"}
-                  marginLeft={"150px"}
-                >
-                  <Box display={"flex"} width={"260px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
-                    <Box
-                      width={"1px"}
-                      background-color={" #D9DFE6"}
-                      height={"28px"}
-                      margin-left={"24px"}
-                    ></Box>
-                  </Box>
-                  <Text display={"flex"} textAlign={"center"} width={"100%"}>
-                    Login with Apple
-                  </Text>
-                </Button>
-                {/* <button type="submit" className="btn-loginw">Login with google</button> */}
-              </Box>
+            </Text>
+            <Text
+              line-height={"24px"}
+              letter-spacing={"0%"}
+              marginTop={"15px"}
+              textAlign={"center"}
+              color={"#808B9A"}
+            >
+              Welcome back ! Please enter your detail .
+            </Text>
+            <Box marginTop={"50px"}>
+              <Input
+                height={"54px"}
+                border={"2px solid #D1E6FF"}
+                borderRadius={"10px"}
+                placeholder="Email"
+                value={formValue.email}
+                onChange={(e) => handleChangeEmail(e)}
+              />
+              <label>{errors?.email?.message}</label>
             </Box>
-            <br></br>
-            <hr></hr>
-            <Box display={"flex"} marginLeft={"140px"} marginTop={"20px"}>
-              <Text fontFamily={"Arial"} marginLeft={"150px"}>
-                First time here ?
-              </Text>
+            <Box marginTop={"40px"}>
+              <Input
+                height={"54px"}
+                border={"2px solid #D1E6FF"}
+                borderRadius={"10px"}
+                placeholder="Password"
+                value={formValue.password}
+                onChange={(e) => handleChangePassword(e)}
+              />
               <br></br>
-              <Box marginLeft={"5px"} color={" #1B85F3"}>
-                <a href="/sign-up">Sign up for free</a>
+              <label>{errors?.password?.message}</label>
+            </Box>
+            <Box mt="17px">
+              <Checkbox>
+                Remember information
+              </Checkbox>
+            </Box>
+            <Box>
+              <Button
+                backgroundColor={"#1B85F3"}
+                borderRadius={"8px"}
+                type="submit"
+                height={"50px"}
+                marginTop={"30px"}
+                w={"full"}
+              >
+                Login
+              </Button>
+            </Box>
+            <Box color={"#1B85F3"} mt="17px" mb="33px" textAlign={"center"}>
+              <a href="/reset">Forget password?</a>
+            </Box>
+            <hr></hr>
+            <Box>
+              <Box>
+                <Box >
+                  <Button
+                    display={"flex"}
+                    marginTop={"30px"}
+                    backgroundColor={"#ffffff"}
+                    width={"full"}
+                    border={"1px solid rgb(203, 203, 203)"}
+                    color={"rgb(134, 134, 134)"}
+                    height={"50px"}
+                    borderRadius={"10px"}
+                  >
+                    <Box display={"flex"} width={"260px"}>
+                      <Image
+                        src="src/image/logo/Master/Social Media - Logos.png"
+                        alt=""
+                      />
+                      <Box
+
+                        background-color={"#D9DFE6"}
+                        height={"28px"}
+                        margin-left={"24px"}
+                      ></Box>
+                    </Box>
+                    <Text
+                      margin-left={"-78px"}
+                      display={"flex"}
+                      justify-content={"center"}
+                      width={"100%"}
+                    >
+                      Login with Facebook
+                    </Text>
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    display={"flex"}
+                    marginTop={"30px"}
+                    backgroundColor={"#ffffff"}
+                    width={"full"}
+                    border={"1px solid rgb(203, 203, 203)"}
+                    color={"rgb(134, 134, 134)"}
+                    height={"50px"}
+                    borderRadius={"10px"}
+                  >
+                    <Box display={"flex"} width={"260px"}>
+                      <Image
+                        src="src/image/logo/Master/Social Media - Logos.png"
+                        alt=""
+                      />
+                      <Box
+                        width={"1px"}
+                        background-color={"#D9DFE6"}
+                        height={"28px"}
+                        margin-left={"24px"}
+                      ></Box>
+                    </Box>
+                    <Text
+                      margin-left={"-78px"}
+                      display={"flex"}
+                      justify-content={"center"}
+                      width={"100%"}
+                    >
+                      Login with Facebook
+                    </Text>
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    display={"flex"}
+                    marginTop={"30px"}
+                    backgroundColor={"#ffffff"}
+                    width={"full"}
+                    border={"1px solid rgb(203, 203, 203)"}
+                    color={"rgb(134, 134, 134)"}
+                    height={"50px"}
+                    borderRadius={"10px"}
+                  >
+                    <Box display={"flex"} width={"260px"}>
+                      <Image
+                        src="src/image/logo/Master/Social Media - Logos.png"
+                        alt=""
+                      />
+                      <Box
+                        width={"1px"}
+                        background-color={" #D9DFE6"}
+                        height={"28px"}
+                        margin-left={"24px"}
+                      ></Box>
+                    </Box>
+                    <Text display={"flex"} textAlign={"center"} width={"100%"}>
+                      Login with Apple
+                    </Text>
+                  </Button>
+                </Box>
+              </Box>
+              <hr></hr>
+              <Box display={"flex"} justifyContent={"center"} marginTop={"20px"}>
+                <Text fontFamily={"Arial"}>
+                  First time here ?
+                </Text>
+                <br></br>
+                <Box marginLeft={"5px"} color={" #1B85F3"}>
+                  <a href="/sign-up">Sign up for free</a>
+                </Box>
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
-    </form>
+    </Box>
   );
 };
 
