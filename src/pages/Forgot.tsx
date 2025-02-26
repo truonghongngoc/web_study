@@ -1,9 +1,11 @@
-import React, { useCallback, useState } from "react";
-import Input from "../component/Input";
+import React from "react";
+import { useCallback, useState } from "react";
+
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import '../index.css'
-
+import "../index.css";
+import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 export type ErrorsFormValue = {
   [key: string]: {
     message: string;
@@ -20,6 +22,7 @@ export const Forgot = () => {
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState(defaultForgot);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
+
   const validation = useCallback(() => {
     setErrors({});
     try {
@@ -52,48 +55,96 @@ export const Forgot = () => {
       navigate("/sign-in");
     }
   }
-  return (
-    <form
-      onSubmit={(e) => {
-        handleSubmit(e);
-      }}
-    >
-      <div className="container">
-        <div className="container-left">
-          <img
-            width={"100%"}
-            height={"auto"}
-            src="src/image/forgot/Desktop/Placeholder Auth.png"
-          ></img>
-        </div>
-        <div className="container-right">
-          <div className="logo">
-            <img src="src/image/App Logo.png"></img>
-          </div>
-          <div className="content">
-            <p className="title">Forgot password</p>
-            <p className="des">
-              Don’t worry! It’s happens. Please enter the email address
-              associated with your account.
-            </p>
-            <div className="input-1">
-              <Input
-                placeholder="Email / Phone number"
-                value={formValue.email}
-                onChange={(e) => handleChangeEmail(e)}
-              ></Input>
-              <label>{errors?.email?.message}</label>
-            </div>
 
-            <div>
-              <button type="submit" className="btn-login">
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
+  return (
+    <>
+      <HelmetProvider>
+        <Helmet>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Helmet>
+      </HelmetProvider>
+      <form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
+        <script type="module" src="src/main.tsx"></script>
+
+        <Box
+          className="wrapper"
+          // w={"100%"}
+          // h={"100vh"}
+
+          display={"flex"}
+          grid-template-columns={"1fr 1fr"}
+        >
+          <Box id="pic-left">
+            <Image
+              // width="660px"
+              // height="964px"
+              padding={"30px"}
+              border-radius={"24px"}
+              src="src/image/signup/Desktop/Placeholder Auth.png"
+            ></Image>
+          </Box>
+
+          <Box id="b-right">
+            <Box float={"right"}>
+              <Image src="src/image/App Logo.png" marginTop={"30px"}></Image>
+            </Box>
+
+            <Box>
+              <Text
+                id="text-fg"
+                marginTop={"150px"}
+                textStyle={"4xl"}
+                // textAlign={"center"}
+                color={"#39434F"}
+                marginLeft={"220px"}
+              >
+                Forgot password ?
+              </Text>
+
+              <Text
+                textAlign={"center"}
+                marginTop={"20px"}
+                color={"#808B9A"}
+                textStyle={""}
+              >
+                Don’t worry! It’s happens. Please enter the email address
+                <br></br> associated with your account.
+              </Text>
+              <Box marginTop={"50px"} marginLeft={"100px"} width={"480px"}>
+                <Input
+                  id={"ip"}
+                  height={"54px"}
+                  marginTop={"10px"}
+                  border={"2px solid #D1E6FF"}
+                  borderRadius={"10px"}
+                  placeholder="Email / Phone number"
+                  value={formValue.email}
+                  onChange={(e) => handleChangeEmail(e)}
+                />
+                <label>{errors?.email?.message}</label>
+              </Box>
+
+              <Box marginLeft={"100px"}>
+                <Button
+                  type="submit"
+                  width={"480px"}
+                  height={"54px"}
+                  marginTop={"30px"}
+                  borderRadius={"10px"}
+                  backgroundColor={"rgb(0, 116, 239)"}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </form>
+    </>
   );
 };
 

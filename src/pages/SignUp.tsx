@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
-import Input from "../component/Input";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import '../index.css'
+import "../index.css";
+
+import { Box, Button, Image, Text, Input, Checkbox } from "@chakra-ui/react";
 // import Button from "../component/Button";
 export type ErrorsFormValue = {
   [key: string]: {
@@ -86,99 +87,161 @@ export const SignUp = () => {
     }
   }
   return (
+    
     <form
       onSubmit={(e) => {
         handleSubmit(e);
       }}
     >
-      <div className="container">
-        <div className="container-left">
-          <img
+      <Box width={"100%"} height={"100vh"} display={"flex"}>
+        <Box padding={"30px"}>
+          <Image
             width={"100%"}
             height={"auto"}
             src="src/image/signup/Desktop/Placeholder Auth.png"
-          ></img>
-        </div>
-        <div className="container-right">
-          <div className="logo">
-            <img src="src/image/App Logo.png"></img>
-          </div>
-          <div className="content">
-            <p className="title">Create your account</p>
-            <p className="des">Hello there! Let’s create your account.</p>
-          
-            <div className="input-3">
-              <div>
-              <Input
-                placeholder="name"
-                value={formValue.name}
-                onChange={  handleChangeName}
-              ></Input>
-              <br></br>
+          ></Image>
+        </Box>
+        <Box width={"760px"}>
+          <Box
+          // paddingTop={"40px"}
+          // paddingRight={"40px"}
+          // display={"flex"}
+          // justifyContent={"flex-end"}
+          >
+            <Image
+              float={"right"}
+              padding={"40px"}
+              src="src/image/App Logo.png"
+            ></Image>
+          </Box>
+          <Box marginLeft={"auto"} marginRight={"auto"} maxWidth={"480px"}>
+            <Text
+              marginTop={"120px"}
+              fontFamily={"Arial"}
+              textAlign={"center"}
+              color={"#39434F"}
+              textStyle={"4xl"}
+            >
+              Create your account
+            </Text>
+            <Text
+              marginTop={"10px"}
+              fontFamily={"Noto Sans"}
+              marginLeft={"70px"}
+              color={"#808B9A"}
+            >
+              Hello there! Let’s create your account.
+            </Text>
 
-              <label >{errors?.name?.message}</label>
-              </div>
-              <div>
-              <Input
-                placeholder="LastName"
-                // width="880px"
-                margin-left="20px;"
-                value={formValue.lastName}
-                onChange={handleChangeLastName}
-              ></Input>
-              <br></br>
+            <Box display={"flex"} marginTop={"50px"} width={"480px"}>
+              <Box>
+                <Input
+                  height={"54px"}
+                  border={"2px solid #D1E6FF"}
+                  borderRadius={"10px"}
+                  placeholder="Name"
+                  value={formValue.name}
+                  onChange={(e) => handleChangeName(e)}
+                />
+                <br></br>
 
-              <label>{errors?.lastName?.message}</label>
-              </div>
-            </div>
-            <div className="input-2">
+                <label>{errors?.name?.message}</label>
+              </Box>
+              <Box margin-left="20px">
+                <Input
+                  width={"250px"}
+                  height={"54px"}
+                  border={"2px solid #D1E6FF"}
+                  borderRadius={"10px"}
+                  placeholder="LastName"
+                  marginLeft={"35px"}
+                  value={formValue.lastName}
+                  onChange={handleChangeLastName}
+                />
+                <br></br>
+
+                <label>{errors?.lastName?.message}</label>
+              </Box>
+            </Box>
+            <Box>
               <Input
+                height={"54px"}
+                border={"2px solid #D1E6FF"}
+                marginTop={"30px"}
                 placeholder="Email"
                 value={formValue.email}
                 onChange={handleChangeEmail}
-              ></Input>
+                borderRadius={"10px"}
+              />
               <label>{errors?.email?.message}</label>
               {/* <p className="text-error">Message</p> */}
-            </div>
-            <div className="input-2">
+            </Box>
+            <Box>
               <Input
+                height={"54px"}
+                border={"2px solid #D1E6FF"}
+                marginTop={"50px"}
+                borderRadius={"10px"}
                 placeholder="Phone number"
                 value={formValue.phone}
                 onChange={handleChangePhone}
-              ></Input>
+              />
               <label>{errors?.phone?.message}</label>
               {/* <p className="text-error">Message</p> */}
-            </div>
-            <div className="input-2">
+            </Box>
+            <Box marginTop={"10px"}>
               <Input
+                marginTop={"40px"}
+                height={"54px"}
+                border={"2px solid #D1E6FF"}
+                borderRadius={"10px"}
                 placeholder="Password"
                 value={formValue.password}
                 onChange={handleChangePassword}
-              ></Input>
+              />
               <label>{errors?.password?.message}</label>
               {/* <p className="text-error">Message</p> */}
-            </div>
-            <div className="checkbox">
-              <input type="checkbox" />
-              <label className="lb-x" for="vehicle1">
+            </Box>
+            <Box
+              // fontFamily={"Arial"}
+              color={"#808B9A"}
+              marginTop={"16px"}
+              // marginLeft={"17px"}
+              display={"flex"}
+            >
+              {/* <Checkbox defaultChecked>
+                click */}
+                {/* <Input width={"5px"} type="checkbox" />
+              <label className="lb" color={"#808B9A"} for="vehicle1">
                 I agree to Platform
-                <a>Terms of Serivce </a>and <a>Privacy Policy</a>{" "}
-              </label>
-            </div>
-            <div>
-              <button className="btn-login">Creat my account</button>
-            </div>
+                <a>Terms of Serivce </a>and <a>Privacy Policy</a>   
+              </label> */}
+              {/* </Checkbox> */}
+            </Box>
+            <Box>
+              <Button
+                backgroundColor={"#1B85F3"}
+                width={"480px"}
+                borderRadius={"6px"}
+                color={"white"}
+                height={"54px"}
+                marginTop={"30px"}
+                type="submit"
+              >
+                Creat my account
+              </Button>
+            </Box>
             <br></br>
             <br></br>
             <hr></hr>
             <br></br>
-            <div className="here">
-              <p>Joined us before ? </p>
+            <Box display={"flex"} marginLeft={"160px"} marginTop={"20px"}>
+              <Text>Joined us before ? </Text>
               <a href="/sign-in"> Login</a>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </form>
   );
 };
