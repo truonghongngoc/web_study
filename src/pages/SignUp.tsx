@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import "../index.css";
 
-import { Box, Button, Image, Text, Input, Checkbox } from "@chakra-ui/react";
+import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
 // import Button from "../component/Button";
 export type ErrorsFormValue = {
   [key: string]: {
