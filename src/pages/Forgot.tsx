@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+
 export type ErrorsFormValue = {
   [key: string]: {
     message: string;
@@ -57,94 +57,104 @@ export const Forgot = () => {
   }
 
   return (
-    <>
-      <HelmetProvider>
-        <Helmet>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Helmet>
-      </HelmetProvider>
-      <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
+    <Box
+      as="form"
+      bg="#F7FAFC"
+      onSubmit={(e) => {
+        handleSubmit(e);
+      }}
+    >
+      <Box
+        w={"100%"}
+        h={"100vh"}
+        marginX="auto"
+        maxW={"1440px"}
+        display={{ base: "block", xl: "flex" }}
       >
-        <script type="module" src="src/main.tsx"></script>
-
         <Box
-          className="wrapper"
-          // w={"100%"}
-          // h={"100vh"}
-
-          display={"flex"}
-          grid-template-columns={"1fr 1fr"}
+          w={"720px"}
+          padding={"30px"}
+          display={{ xl: "block", base: "none" }}
         >
-          <Box id="pic-left">
+          <Image
+            width={"100%"}
+            height={"auto"}
+            src="src/image/signup/Desktop/Placeholder Auth.png"
+          ></Image>
+        </Box>
+        <Box flex={1}>
+          <Box
+            display={"flex"}
+            justifyContent={{ xl: "flex-end", base: "flex-start" }}
+          >
             <Image
-              // width="660px"
-              // height="964px"
-              padding={"30px"}
-              border-radius={"24px"}
-              src="src/image/signup/Desktop/Placeholder Auth.png"
+              marginTop={{ xl: "40px", base: "16px" }}
+              marginRight={"40px"}
+              marginLeft={{ base: "24px" }}
+              marginBottom={{ base: "16px" }}
+              src="src/image/App Logo.png"
             ></Image>
           </Box>
-
-          <Box id="b-right">
-            <Box float={"right"}>
-              <Image src="src/image/App Logo.png" marginTop={"30px"}></Image>
-            </Box>
-
-            <Box>
-              <Text
-                id="text-fg"
-                marginTop={"150px"}
-                textStyle={"4xl"}
-                // textAlign={"center"}
-                color={"#39434F"}
-                marginLeft={"220px"}
-              >
-                Forgot password ?
-              </Text>
-
-              <Text
-                textAlign={"center"}
-                marginTop={"20px"}
-                color={"#808B9A"}
-                textStyle={""}
-              >
-                Don’t worry! It’s happens. Please enter the email address
-                <br></br> associated with your account.
-              </Text>
-              <Box marginTop={"50px"} marginLeft={"100px"} width={"480px"}>
-                <Input
-                  id={"ip"}
-                  height={"54px"}
-                  marginTop={"10px"}
-                  border={"2px solid #D1E6FF"}
-                  borderRadius={"10px"}
-                  placeholder="Email / Phone number"
-                  value={formValue.email}
-                  onChange={(e) => handleChangeEmail(e)}
-                />
+          <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
+            <Image
+              width={"auto"}
+              height={"306px"}
+              src="src/image/fgot/Mobile/Placeholder Container.png"
+            ></Image>
+          </Box>
+          <Box
+            bg={{ base: "white", xl: "initial" }}
+            borderRadius={"32px"}
+            maxWidth={"440px"}
+            mx="auto"
+            w={"100%"}
+            px="24px"
+          >
+            <Text fontSize={"4xl"} marginTop={"25px"} textAlign={"center"}>
+              Forgot Password
+            </Text>
+            <Text
+              line-height={"24px"}
+              letter-spacing={"0%"}
+              marginTop={"15px"}
+              textAlign={"center"}
+              color={"#808B9A"}
+            >
+              Don’t worry! It’s happens. Please enter the email address
+              associated with your account.
+            </Text>
+            <Box marginTop={"32px"}>
+              <Input
+                height={"54px"}
+                border={"2px solid #D1E6FF"}
+                borderRadius={"10px"}
+                placeholder="Email"
+                value={formValue.email}
+                onChange={(e) => handleChangeEmail(e)}
+              />
+              <Box color={"red"} marginTop={"5px"}>
                 <label>{errors?.email?.message}</label>
               </Box>
-
-              <Box marginLeft={"100px"}>
-                <Button
-                  type="submit"
-                  width={"480px"}
-                  height={"54px"}
-                  marginTop={"30px"}
-                  borderRadius={"10px"}
-                  backgroundColor={"rgb(0, 116, 239)"}
-                >
-                  Submit
-                </Button>
-              </Box>
             </Box>
+
+            <Button
+              type="submit"
+              display={"flex"}
+              marginTop={{ base: "170px", xl: "42px" }}
+              backgroundColor={"#1B85F3"}
+              width={"full"}
+              border={"1px solid rgb(203, 203, 203)"}
+              color={"rgb(255, 255, 255)"}
+              height={"50px"}
+              borderRadius={"10px"}
+            >
+              Submit
+            </Button>
           </Box>
         </Box>
-      </form>
-    </>
+      </Box>
+    </Box>
+    // </Box>
   );
 };
 

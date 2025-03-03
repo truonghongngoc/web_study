@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import "../index.css";
-
+import { Checkbox } from "../components/ui/checkbox";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
 // import Button from "../component/Button";
 export type ErrorsFormValue = {
@@ -87,36 +87,63 @@ export const SignUp = () => {
     }
   }
   return (
-    
-    <form
+    <Box
+      as="form"
+      bg="#F7FAFC"
       onSubmit={(e) => {
         handleSubmit(e);
       }}
     >
-      <Box width={"100%"} height={"100vh"} display={"flex"}>
-        <Box padding={"30px"}>
+      <Box
+        width={"100%"}
+        height={"100vh"}
+        margin="auto"
+        maxW={"1440px"}
+        display={{ xl: "flex", base: "block" }}
+      >
+        <Box
+          width={"720px"}
+          padding={"30px"}
+          display={{ xl: "flex", base: "none" }}
+          bg={{ base: "#F7FAFC" }}
+        >
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/signup/Desktop/Placeholder Auth.png"
+            src="src/image/create/Desktop/Placeholder Auth.png"
           ></Image>
         </Box>
-        <Box width={"760px"}>
+        <Box flex={1}>
           <Box
-          // paddingTop={"40px"}
-          // paddingRight={"40px"}
-          // display={"flex"}
-          // justifyContent={"flex-end"}
+            display={"flex"}
+            justifyContent={{ xl: "flex-end", base: "flex-start" }}
           >
             <Image
-              float={"right"}
-              padding={"40px"}
+              marginTop={{ xl: "40px", base: "16px" }}
+              marginLeft={{ base: "24px" }}
+              marginRight={"40px"}
+              marginBottom={{ base: "16px" }}
               src="src/image/App Logo.png"
             ></Image>
           </Box>
-          <Box marginLeft={"auto"} marginRight={"auto"} maxWidth={"480px"}>
+          <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
+            <Image
+              height={"240px"}
+              width={"auto"}
+              src="src/image/bgsup/Mobile/Placeholder Container.png"
+            ></Image>
+          </Box>
+
+          <Box
+            bg={{ base: "white", xl: "initial" }}
+            borderRadius={"32px"}
+            maxWidth={"440px"}
+            mx="auto"
+            w={"100%"}
+            px="24px"
+          >
             <Text
-              marginTop={"120px"}
+              marginTop={{ xl: "50px" }}
               fontFamily={"Arial"}
               textAlign={"center"}
               color={"#39434F"}
@@ -132,117 +159,117 @@ export const SignUp = () => {
             >
               Hello there! Let’s create your account.
             </Text>
-
-            <Box display={"flex"} marginTop={"50px"} width={"480px"}>
+            <Box padding={{ base: "24px" }}>
+              <Box width={"300px"} display={"flex"} marginTop={"42px"}>
+                <Box>
+                  <Input
+                    height={"54px"}
+                    border={"2px solid #D1E6FF"}
+                    borderRadius={"10px"}
+                    placeholder="Name"
+                    value={formValue.name}
+                    onChange={(e) => handleChangeName(e)}
+                  />
+                  <br></br>
+                  <Box color={"red"} marginTop={"5px"}>
+                    <label>{errors?.name?.message}</label>
+                  </Box>
+                </Box>
+                <Box>
+                  <Input
+                    height={"54px"}
+                    border={"2px solid #D1E6FF"}
+                    borderRadius={"10px"}
+                    placeholder="LastName"
+                    marginLeft={"37px"}
+                    value={formValue.lastName}
+                    onChange={handleChangeLastName}
+                  />
+                  <br></br>
+                  <Box color={"red"} marginTop={"5px"}>
+                    <label>{errors?.lastName?.message}</label>
+                  </Box>
+                </Box>
+              </Box>
               <Box>
                 <Input
                   height={"54px"}
                   border={"2px solid #D1E6FF"}
+                  marginTop={"30px"}
+                  placeholder="Email"
+                  value={formValue.email}
+                  onChange={handleChangeEmail}
                   borderRadius={"10px"}
-                  placeholder="Name"
-                  value={formValue.name}
-                  onChange={(e) => handleChangeName(e)}
                 />
-                <br></br>
-
-                <label>{errors?.name?.message}</label>
+                <Box color={"red"} marginTop={"5px"}>
+                  <label>{errors?.email?.message}</label>
+                  {/* <p className="text-error">Message</p> */}
+                </Box>
               </Box>
-              <Box margin-left="20px">
+              <Box>
                 <Input
-                  width={"250px"}
+                  height={"54px"}
+                  border={"2px solid #D1E6FF"}
+                  marginTop={"50px"}
+                  borderRadius={"10px"}
+                  placeholder="Phone number"
+                  value={formValue.phone}
+                  onChange={handleChangePhone}
+                />
+                <Box color={"red"} marginTop={"5px"}>
+                  <label>{errors?.phone?.message}</label>
+                  {/* <p className="text-error">Message</p> */}
+                </Box>
+              </Box>
+              <Box marginTop={"10px"}>
+                <Input
+                  marginTop={"40px"}
                   height={"54px"}
                   border={"2px solid #D1E6FF"}
                   borderRadius={"10px"}
-                  placeholder="LastName"
-                  marginLeft={"35px"}
-                  value={formValue.lastName}
-                  onChange={handleChangeLastName}
+                  placeholder="Password"
+                  value={formValue.password}
+                  onChange={handleChangePassword}
                 />
-                <br></br>
-
-                <label>{errors?.lastName?.message}</label>
+                <Box color={"red"} marginTop={"5px"}>
+                  <label>{errors?.password?.message}</label>
+                  {/* <p className="text-error">Message</p> */}
+                </Box>
               </Box>
-            </Box>
-            <Box>
-              <Input
-                height={"54px"}
-                border={"2px solid #D1E6FF"}
-                marginTop={"30px"}
-                placeholder="Email"
-                value={formValue.email}
-                onChange={handleChangeEmail}
-                borderRadius={"10px"}
-              />
-              <label>{errors?.email?.message}</label>
-              {/* <p className="text-error">Message</p> */}
-            </Box>
-            <Box>
-              <Input
-                height={"54px"}
-                border={"2px solid #D1E6FF"}
-                marginTop={"50px"}
-                borderRadius={"10px"}
-                placeholder="Phone number"
-                value={formValue.phone}
-                onChange={handleChangePhone}
-              />
-              <label>{errors?.phone?.message}</label>
-              {/* <p className="text-error">Message</p> */}
-            </Box>
-            <Box marginTop={"10px"}>
-              <Input
-                marginTop={"40px"}
-                height={"54px"}
-                border={"2px solid #D1E6FF"}
-                borderRadius={"10px"}
-                placeholder="Password"
-                value={formValue.password}
-                onChange={handleChangePassword}
-              />
-              <label>{errors?.password?.message}</label>
-              {/* <p className="text-error">Message</p> */}
-            </Box>
-            <Box
-              // fontFamily={"Arial"}
-              color={"#808B9A"}
-              marginTop={"16px"}
-              // marginLeft={"17px"}
-              display={"flex"}
-            >
-              {/* <Checkbox defaultChecked>
-                click */}
-                {/* <Input width={"5px"} type="checkbox" />
-              <label className="lb" color={"#808B9A"} for="vehicle1">
-                I agree to Platform
-                <a>Terms of Serivce </a>and <a>Privacy Policy</a>   
-              </label> */}
-              {/* </Checkbox> */}
-            </Box>
-            <Box>
+         
+            <Box justifyContent={"center"}>
               <Button
                 backgroundColor={"#1B85F3"}
-                width={"480px"}
-                borderRadius={"6px"}
-                color={"white"}
-                height={"54px"}
-                marginTop={"30px"}
+                borderRadius={"8px"}
                 type="submit"
+                height={"50px"}
+                marginTop={"50px"}
+                padding={{ base: "24px" }}
+                w={"full"}
               >
-                Creat my account
+                Create my account
               </Button>
+              </Box>
+              <Box marginTop={{ base: "20px" }}>
+                <Checkbox color={"grey"}>
+                  I agree to Platform <a> Terms of Serivce</a> and{" "}
+                  <a> Privacy Policy</a>
+                </Checkbox>
+              </Box>
             </Box>
+
             <br></br>
             <br></br>
             <hr></hr>
             <br></br>
-            <Box display={"flex"} marginLeft={"160px"} marginTop={"20px"}>
+            <Box display={"flex"} justifyContent={"center "} marginTop={"20px"}>
               <Text>Joined us before ? </Text>
               <a href="/sign-in"> Login</a>
             </Box>
           </Box>
         </Box>
       </Box>
-    </form>
+    </Box>
   );
 };
 export default SignUp;
