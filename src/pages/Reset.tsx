@@ -62,92 +62,115 @@ export const Reset = () => {
     }
   }
   return (
-    <form
+    <Box
+      as="form"
+      bg="#F7FAFC"
       onSubmit={(e) => {
         handleSubmit(e);
       }}
     >
-      <Box width={"100%"} height={"100vh"} display={"flex"}>
-        <Box padding={"30px"}>
+      <Box
+        width={"100%"}
+        height={"100vh"}
+        marginX={"auto"}
+        maxW={"1440px"}
+        display={{ base: "block", xl: "flex" }}
+      >
+        <Box
+          width={"720px"}
+          padding={"30px"}
+          display={{ xl: "block", base: "none" }}
+        >
           <Image
             width={"100%"}
             height={"auto"}
             src="src/image/re/Desktop/Placeholder Auth.png"
           ></Image>
         </Box>
-        <Box width="760px">
+        <Box flex={1}>
           <Box
-          //  paddingTop={"40px"}
-          //  paddingRight={"40px"}
-          //  display={"flex"}
-          //  marginLeft={"700px"}
+            display={"flex"}
+            justifyContent={{ xl: "flex-end", base: "flex-start" }}
           >
             <Image
-              float={"right"}
-              padding={"40px"}
+              marginTop={{ xl: "40px", base: "16px" }}
+              marginLeft={{ base: "24px" }}
               src="src/image/App Logo.png"
             ></Image>
           </Box>
-          <Box marginLeft={"auto"} marginRight={"auto"} maxWidth={"480px"}>
-            <Text
-              marginTop={"150px"}
-              fontFamily={"Arial"}
-              textStyle={"4xl"}
-              textAlign={"center"}
-              color={"#39434F"}
+          <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
+            <Image
+              width={"auto"}
+              height={"240px"}
+              src="src/image/rset/Mobile/Placeholder Container.png"
+            ></Image>
+          </Box>
+          <Box marginLeft={"auto"} marginRight={"auto"}>
+            <Box
+              bg={{ base: "white", xl: "initial" }}
+              borderRadius={"32px"}
+              maxWidth={"440px"}
+              mx="auto"
+              w={"100%"}
+              px="24px"
             >
-              Reset Password
-            </Text>
-            {/* < <p className="des">
-              
-              
-              </p>> */}
-            <Box marginTop={"34px"}>
-              <Input
-                height={"45px"}
-                border={"2px solid #D1E6FF"}
-                borderRadius={"10px"}
-                placeholder="Password"
-                value={formValue.password}
-                onChange={(e) => handleChangePassword(e)}
-              />
-              <label>{errors?.password?.message}</label>
-            </Box>
-            <Box marginTop={"40px"}>
-              <Input
-                height={"54px"}
-                border={"2px solid #D1E6FF"}
-                borderRadius={"10px"}
-                placeholder="Confirm new password"
-                value={formValue.confirmPassword}
-                onChange={(e) => handleChangeConfirmPassword(e)}
-              />
-              <label>{errors?.confirmPassword?.message}</label>
-
-              <Button
-                type="submit"
-                backgroundColor={"#1B85F3"}
-                width={"480px"}
-                borderRadius={"10px"}
-                border={"Black"}
-                color={"white"}
-                height={"54px"}
-                marginTop={"30px"}
+              <Text
+                marginTop={{ xl: "150px", base: "24px" }}
+                fontFamily={"Arial"}
+                textStyle={"4xl"}
+                textAlign={"center"}
+                color={"#39434F"}
               >
-                Submit
-              </Button>
-              <br></br>
-              <br></br>
-              <Box marginLeft={"210px"}>
-                <a className=" lg-reset" href="/sign-in">
-                  Login
-                </a>
+                Reset Password
+              </Text>
+              <Box marginTop={"32px"}>
+                <Input
+                  height={"54px"}
+                  border={"2px solid #D1E6FF"}
+                  borderRadius={"10px"}
+                  placeholder="Password"
+                  value={formValue.password}
+                  onChange={(e) => handleChangePassword(e)}
+                />
+                <Box color={"red"} marginTop={"5px"}>
+                  <label>{errors?.password?.message}</label>
+                </Box>
+              </Box>
+              <Box marginTop={"30px"}>
+                <Input
+                  height={"54px"}
+                  border={"2px solid #D1E6FF"}
+                  borderRadius={"10px"}
+                  placeholder="Confirm new password"
+                  value={formValue.confirmPassword}
+                  onChange={(e) => handleChangeConfirmPassword(e)}
+                />
+                <Box color={"red"} marginTop={"5px"}>
+                  <label>{errors?.confirmPassword?.message}</label>
+                </Box>
+                <Button
+                  backgroundColor={"#1B85F3"}
+                  borderRadius={"8px"}
+                  type="submit"
+                  height={"50px"}
+                  marginTop={"50px"}
+                  w={"full"}
+                >
+                  Submit
+                </Button>
+                {/* <br></br>
+                <br></br>
+                <Box textAlign={"center"}>
+                  <a className=" lg-reset" href="/sign-in">
+                    Login
+                  </a>
+                </Box> */}
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
-    </form>
+    </Box>
   );
 };
 export default Reset;
