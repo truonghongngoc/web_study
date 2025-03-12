@@ -6,6 +6,7 @@ import Forgot from "./pages/Forgot";
 import Confirm from "./pages/Confirm";
 import SignUp from "./pages/SignUp";
 import { CodePage } from "./pages/Code";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path:'confirm',
     element:<Confirm/>
+  },
+  {
+    path:'home',
+    element:<Home/>
   },
   {
     path: "/code",

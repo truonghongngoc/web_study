@@ -33,3 +33,7 @@ p {
     margin-block-start: 0;
     margin-block-end: 0;
 }
+
+@media only screen and (max-width: 768px) {
+    
+}
