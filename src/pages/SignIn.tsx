@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-// import Input from "../component/Input";
+// import Input from "../components/elements/Input";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 // import "../index.css";
@@ -85,7 +85,7 @@ export const SignIn = () => {
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/signup/Desktop/Placeholder Auth.png"
+            src="src/assets/background_2.png"
           ></Image>
         </Box>
         <Box flex={1}>
@@ -98,14 +98,14 @@ export const SignIn = () => {
               marginRight={"40px"}
               marginLeft={{ base: "24px" }}
               marginBottom={{ base: "16px" }}
-              src="src/image/App Logo.png"
+              src="src/assets/logo"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
             <Image
               width={"auto"}
               height={"240px"}
-              src="src/image/background-sign-in-sp.png"
+              src="src/assets/background-sign-in-sp.png"
             ></Image>
           </Box>
           <Box
@@ -137,12 +137,9 @@ export const SignIn = () => {
                 value={formValue.email}
                 onChange={(e) => handleChangeEmail(e)}
               />
-              <Box
-              color={"red"}
-              marginTop={"5px"}
-              >
-              <label>{errors?.email?.message}</label>
-            </Box>
+              <Box color={"red"} marginTop={"5px"}>
+                <label>{errors?.email?.message}</label>
+              </Box>
             </Box>
 
             <Box marginTop={"40px"}>
@@ -155,16 +152,12 @@ export const SignIn = () => {
                 onChange={(e) => handleChangePassword(e)}
               />
               <br></br>
-              <Box color={"red"}
-                marginTop={"5px"}>
-              <label>{errors?.password?.message}</label>
+              <Box color={"red"} marginTop={"5px"}>
+                <label>{errors?.password?.message}</label>
               </Box>
             </Box>
             <Box mt="17px">
-              <Checkbox
-              color={"#808B9A"}
-             
-              >Remember information</Checkbox>
+              <Checkbox color={"#808B9A"}>Remember information</Checkbox>
             </Box>
             <Box>
               <Button
@@ -197,10 +190,7 @@ export const SignIn = () => {
                   borderRadius={"10px"}
                 >
                   <Box display={"flex"} width={"120px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
+                    <Image src="src/assets/social_icon_google.png" alt="" />
                     <Box
                       background-color={"#D9DFE6"}
                       height={"28px"}
@@ -229,10 +219,7 @@ export const SignIn = () => {
                   borderRadius={"10px"}
                 >
                   <Box display={"flex"} width={"120px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
+                    <Image src="src/assets/social_icon_google.png" alt="" />
                     <Box
                       width={"1px"}
                       background-color={"#D9DFE6"}
@@ -262,10 +249,7 @@ export const SignIn = () => {
                   borderRadius={"10px"}
                 >
                   <Box display={"flex"} width={"120px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
+                    <Image src="src/assets/social_icon_google.png" alt="" />
                     <Box
                       width={"1px"}
                       background-color={" #D9DFE6"}
@@ -279,8 +263,7 @@ export const SignIn = () => {
                 </Button>
               </Box>
             </Box>
-            <br>
-            </br>
+            <br></br>
             <br></br>
             <hr></hr>
             <Box display={"flex"} justifyContent={"center"} marginTop={"42px"}>

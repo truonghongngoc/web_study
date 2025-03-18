@@ -79,7 +79,7 @@ export const Forgot = () => {
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/signup/Desktop/Placeholder Auth.png"
+            src="src/assets/background_2.png"
           ></Image>
         </Box>
         <Box flex={1}>
@@ -92,14 +92,14 @@ export const Forgot = () => {
               marginRight={"40px"}
               marginLeft={{ base: "24px" }}
               marginBottom={{ base: "16px" }}
-              src="src/image/App Logo.png"
+              src="src/assets/logo"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
             <Image
               width={"auto"}
               height={"306px"}
-              src="src/image/fgot/Mobile/Placeholder Container.png"
+              src="src/assets/placeholder_container.png"
             ></Image>
           </Box>
           <Box
@@ -120,7 +120,7 @@ export const Forgot = () => {
               textAlign={"center"}
               color={"#808B9A"}
             >
-              Don’t worry! It’s happens. Please enter the email address
+              Don't worry! It's happens. Please enter the email address
               associated with your account.
             </Text>
             <Box marginTop={"32px"}>

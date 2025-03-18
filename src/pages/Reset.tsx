@@ -84,7 +84,7 @@ export const Reset = () => {
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/re/Desktop/Placeholder Auth.png"
+            src="src/assets/background_1.png"
           ></Image>
         </Box>
         <Box flex={1}>
@@ -95,14 +95,14 @@ export const Reset = () => {
             <Image
               marginTop={{ xl: "40px", base: "16px" }}
               marginLeft={{ base: "24px" }}
-              src="src/image/App Logo.png"
+              src="src/assets/logo"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
             <Image
               width={"auto"}
               height={"240px"}
-              src="src/image/rset/Mobile/Placeholder Container.png"
+              src="src/assets/background_mobile_1.png"
             ></Image>
           </Box>
           <Box marginLeft={"auto"} marginRight={"auto"}>

@@ -4,7 +4,7 @@ import * as yup from "yup";
 import "../index.css";
 import { Checkbox } from "../components/ui/checkbox";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
-// import Button from "../component/Button";
+// import Button from "../components/elements/Button";
 export type ErrorsFormValue = {
   [key: string]: {
     message: string;
@@ -110,7 +110,7 @@ export const SignUp = () => {
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/create/Desktop/Placeholder Auth.png"
+            src="src/assets/background_2.png"
           ></Image>
         </Box>
         <Box flex={1}>
@@ -123,14 +123,14 @@ export const SignUp = () => {
               marginLeft={{ base: "24px" }}
               marginRight={"40px"}
               marginBottom={{ base: "16px" }}
-              src="src/image/App Logo.png"
+              src="src/assets/logo"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
             <Image
               height={"240px"}
               width={"auto"}
-              src="src/image/bgsup/Mobile/Placeholder Container.png"
+              src="src/assets/placeholder_container.png"
             ></Image>
           </Box>
 
@@ -236,19 +236,19 @@ export const SignUp = () => {
                   {/* <p className="text-error">Message</p> */}
                 </Box>
               </Box>
-         
-            <Box justifyContent={"center"}>
-              <Button
-                backgroundColor={"#1B85F3"}
-                borderRadius={"8px"}
-                type="submit"
-                height={"50px"}
-                marginTop={"50px"}
-                padding={{ base: "24px" }}
-                w={"full"}
-              >
-                Create my account
-              </Button>
+
+              <Box justifyContent={"center"}>
+                <Button
+                  backgroundColor={"#1B85F3"}
+                  borderRadius={"8px"}
+                  type="submit"
+                  height={"50px"}
+                  marginTop={"50px"}
+                  padding={{ base: "24px" }}
+                  w={"full"}
+                >
+                  Create my account
+                </Button>
               </Box>
               <Box marginTop={{ base: "20px" }}>
                 <Checkbox color={"grey"}>
