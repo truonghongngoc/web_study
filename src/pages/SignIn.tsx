@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react";
-// import Input from "../component/Input";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-// import "../index.css";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
 import { Checkbox } from "../components/ui/checkbox";
+import axios from "axios";
+import { toaster } from "../components/ui/toaster";
+import { PasswordInput } from "../components/ui/password-input";
 
 export type ErrorsFormValue = {
   [key: string]: {
@@ -22,6 +23,7 @@ export const defaultSignin: SigninFormValue = {
 };
 export const SignIn = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const [formValue, setFormValue] = useState(defaultSignin);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
   const validation = useCallback(() => {
@@ -44,6 +46,7 @@ export const SignIn = () => {
     }
     return true;
   }, [formValue]);
+
   function handleChangeEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setFormValue({
       ...formValue,
@@ -56,10 +59,31 @@ export const SignIn = () => {
       password: e.target.value,
     });
   }
-  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     if (validation()) {
-      navigate("/#");
+      setIsLoading(true);
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/auth/sign-in",
+          {
+            username: formValue.email,
+            password: formValue.password,
+          }
+        );
+
+        localStorage.setItem("access_token", response.data.access_token);
+
+        navigate("/");
+      } catch (error) {
+        toaster.create({
+          title: "Sign In Error",
+          type: "error",
+          description: "Unauthorized",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
   }
   return (
@@ -72,7 +96,7 @@ export const SignIn = () => {
     >
       <Box
         w={"100%"}
-        h={"100vh"}
+        h={"100%"}
         marginX="auto"
         maxW={"1440px"}
         display={{ base: "block", xl: "flex" }}
@@ -85,7 +109,7 @@ export const SignIn = () => {
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/signup/Desktop/Placeholder Auth.png"
+            src="src/assets/background_2.png"
           ></Image>
         </Box>
         <Box flex={1}>
@@ -98,22 +122,24 @@ export const SignIn = () => {
               marginRight={"40px"}
               marginLeft={{ base: "24px" }}
               marginBottom={{ base: "16px" }}
-              src="src/image/App Logo.png"
+              src="src/assets/logo.png"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
             <Image
               width={"auto"}
               height={"240px"}
-              src="src/image/background-sign-in-sp.png"
+              src="src/assets/background-sign-in-sp.png"
             ></Image>
           </Box>
           <Box
             bg={{ base: "white", xl: "initial" }}
             borderRadius={"32px"}
             maxWidth={"440px"}
+           height={"auto"}
             mx="auto"
             w={"100%"}
+            h={"100vh"}
             px="24px"
           >
             <Text fontSize={"5xl"} marginTop={"25px"} textAlign={"center"}>
@@ -137,16 +163,13 @@ export const SignIn = () => {
                 value={formValue.email}
                 onChange={(e) => handleChangeEmail(e)}
               />
-              <Box
-              color={"red"}
-              marginTop={"5px"}
-              >
-              <label>{errors?.email?.message}</label>
-            </Box>
+              <Box color={"red"} marginTop={"5px"}>
+                <label>{errors?.email?.message}</label>
+              </Box>
             </Box>
 
             <Box marginTop={"40px"}>
-              <Input
+              <PasswordInput
                 height={"54px"}
                 border={"2px solid #D1E6FF"}
                 borderRadius={"10px"}
@@ -155,16 +178,12 @@ export const SignIn = () => {
                 onChange={(e) => handleChangePassword(e)}
               />
               <br></br>
-              <Box color={"red"}
-                marginTop={"5px"}>
-              <label>{errors?.password?.message}</label>
+              <Box color={"red"} marginTop={"5px"}>
+                <label>{errors?.password?.message}</label>
               </Box>
             </Box>
             <Box mt="17px">
-              <Checkbox
-              color={"#808B9A"}
-             
-              >Remember information</Checkbox>
+              <Checkbox color={"#808B9A"}>Remember information</Checkbox>
             </Box>
             <Box>
               <Button
@@ -174,113 +193,16 @@ export const SignIn = () => {
                 height={"50px"}
                 marginTop={"30px"}
                 w={"full"}
+                loading={isLoading}
               >
                 Login
               </Button>
             </Box>
             <Box color={"#1B85F3"} mt="17px" mb="33px" textAlign={"center"}>
-              <a href="/reset">Forget password?</a>
+              <a href="/forgot">Forgot password ?</a>
             </Box>
-            <Box>
-              <hr></hr>
-              {/* <Box>
-              <Box> */}
-              <Box>
-                <Button
-                  display={"flex"}
-                  marginTop={"30px"}
-                  backgroundColor={"#ffffff"}
-                  width={"full"}
-                  border={"1px solid rgb(203, 203, 203)"}
-                  color={"rgb(134, 134, 134)"}
-                  height={"50px"}
-                  borderRadius={"10px"}
-                >
-                  <Box display={"flex"} width={"120px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
-                    <Box
-                      background-color={"#D9DFE6"}
-                      height={"28px"}
-                      margin-left={"24px"}
-                    ></Box>
-                  </Box>
-                  <Text
-                    margin-left={"-78px"}
-                    display={"flex"}
-                    justify-content={"center"}
-                    width={"100%"}
-                  >
-                    Login with Facebook
-                  </Text>
-                </Button>
-              </Box>
-              <Box>
-                <Button
-                  display={"flex"}
-                  marginTop={"30px"}
-                  backgroundColor={"#ffffff"}
-                  width={"full"}
-                  border={"1px solid rgb(203, 203, 203)"}
-                  color={"rgb(134, 134, 134)"}
-                  height={"50px"}
-                  borderRadius={"10px"}
-                >
-                  <Box display={"flex"} width={"120px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
-                    <Box
-                      width={"1px"}
-                      background-color={"#D9DFE6"}
-                      height={"28px"}
-                      margin-left={"24px"}
-                    ></Box>
-                  </Box>
-                  <Text
-                    margin-left={"-78px"}
-                    display={"flex"}
-                    justify-content={"center"}
-                    width={"100%"}
-                  >
-                    Login with Facebook
-                  </Text>
-                </Button>
-              </Box>
-              <Box>
-                <Button
-                  display={"flex"}
-                  marginTop={"30px"}
-                  backgroundColor={"#ffffff"}
-                  width={"full"}
-                  border={"1px solid rgb(203, 203, 203)"}
-                  color={"rgb(134, 134, 134)"}
-                  height={"50px"}
-                  borderRadius={"10px"}
-                >
-                  <Box display={"flex"} width={"120px"}>
-                    <Image
-                      src="src/image/logo/Master/Social Media - Logos.png"
-                      alt=""
-                    />
-                    <Box
-                      width={"1px"}
-                      background-color={" #D9DFE6"}
-                      height={"28px"}
-                      margin-left={"24px"}
-                    ></Box>
-                  </Box>
-                  <Text display={"flex"} textAlign={"center"} width={"100%"}>
-                    Login with Apple
-                  </Text>
-                </Button>
-              </Box>
-            </Box>
-            <br>
-            </br>
+          
+          
             <br></br>
             <hr></hr>
             <Box display={"flex"} justifyContent={"center"} marginTop={"42px"}>

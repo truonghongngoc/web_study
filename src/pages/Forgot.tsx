@@ -5,6 +5,8 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
+import axios from "axios";
+import { toaster } from "../components/ui/toaster";
 
 export type ErrorsFormValue = {
   [key: string]: {
@@ -20,6 +22,7 @@ export const defaultForgot: TForgotFormValue = {
 };
 export const Forgot = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const [formValue, setFormValue] = useState(defaultForgot);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
 
@@ -49,10 +52,22 @@ export const Forgot = () => {
       email: e.target.value,
     });
   }
-  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     if (validation()) {
-      navigate("/sign-in");
+      setIsLoading(true);
+      try {
+        await axios.post("http://localhost:3001/auth/forgot-password", {
+          email: formValue.email,
+        });
+        navigate("/confirm");
+      } catch (error) {
+        toaster.create({
+          title: "Throw ",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
   }
 
@@ -79,7 +94,7 @@ export const Forgot = () => {
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/signup/Desktop/Placeholder Auth.png"
+            src="src/assets/background_2.png"
           ></Image>
         </Box>
         <Box flex={1}>
@@ -92,14 +107,14 @@ export const Forgot = () => {
               marginRight={"40px"}
               marginLeft={{ base: "24px" }}
               marginBottom={{ base: "16px" }}
-              src="src/image/App Logo.png"
+              src="src/assets/logo.png"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
             <Image
               width={"auto"}
               height={"306px"}
-              src="src/image/fgot/Mobile/Placeholder Container.png"
+              src="src/assets/placeholder_container.png"
             ></Image>
           </Box>
           <Box
@@ -120,7 +135,7 @@ export const Forgot = () => {
               textAlign={"center"}
               color={"#808B9A"}
             >
-              Don’t worry! It’s happens. Please enter the email address
+              Don't worry! It's happens. Please enter the email address
               associated with your account.
             </Text>
             <Box marginTop={"32px"}>
@@ -147,6 +162,7 @@ export const Forgot = () => {
               color={"rgb(255, 255, 255)"}
               height={"50px"}
               borderRadius={"10px"}
+              loading={isLoading}
             >
               Submit
             </Button>

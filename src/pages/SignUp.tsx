@@ -4,7 +4,9 @@ import * as yup from "yup";
 import "../index.css";
 import { Checkbox } from "../components/ui/checkbox";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
-// import Button from "../component/Button";
+import { toaster } from "../components/ui/toaster";
+import axios from "axios";
+// import Button from "../components/elements/Button";
 export type ErrorsFormValue = {
   [key: string]: {
     message: string;
@@ -26,6 +28,7 @@ export const defaultSignup: TSignupFormValue = {
   password: "",
 };
 export const SignUp = () => {
+  const [isLoading, setIsLoading] = useState<boolean>();
   const [formValue, setFormValue] = useState(defaultSignup);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
   const navigate = useNavigate();
@@ -80,10 +83,32 @@ export const SignUp = () => {
       password: e.target.value,
     });
   }
-  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     if (validation()) {
-      navigate("/");
+      setIsLoading(true);
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/auth/sign-up",
+          {
+            password: formValue.password,
+            username: formValue.email,
+            name: formValue.name,
+          }
+        );
+
+        localStorage.setItem("access_token", response.data.access_token);
+
+        navigate("/");
+      } catch (error) {
+        toaster.create({
+          title: "Sign In Error",
+          type: "error",
+          description: "Unauthorized",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
   }
   return (
@@ -110,7 +135,7 @@ export const SignUp = () => {
           <Image
             width={"100%"}
             height={"auto"}
-            src="src/image/create/Desktop/Placeholder Auth.png"
+            src="src/assets/background_2.png"
           ></Image>
         </Box>
         <Box flex={1}>
@@ -123,14 +148,14 @@ export const SignUp = () => {
               marginLeft={{ base: "24px" }}
               marginRight={"40px"}
               marginBottom={{ base: "16px" }}
-              src="src/image/App Logo.png"
+              src="src/assets/logo.png"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
             <Image
               height={"240px"}
               width={"auto"}
-              src="src/image/bgsup/Mobile/Placeholder Container.png"
+              src="src/assets/placeholder_container.png"
             ></Image>
           </Box>
 
@@ -236,19 +261,20 @@ export const SignUp = () => {
                   {/* <p className="text-error">Message</p> */}
                 </Box>
               </Box>
-         
-            <Box justifyContent={"center"}>
-              <Button
-                backgroundColor={"#1B85F3"}
-                borderRadius={"8px"}
-                type="submit"
-                height={"50px"}
-                marginTop={"50px"}
-                padding={{ base: "24px" }}
-                w={"full"}
-              >
-                Create my account
-              </Button>
+
+              <Box justifyContent={"center"}>
+                <Button
+                  backgroundColor={"#1B85F3"}
+                  borderRadius={"8px"}
+                  type="submit"
+                  height={"50px"}
+                  marginTop={"50px"}
+                  padding={{ base: "24px" }}
+                  w={"full"}
+                  loading={isLoading}
+                >
+                  Create my account
+                </Button>
               </Box>
               <Box marginTop={{ base: "20px" }}>
                 <Checkbox color={"grey"}>

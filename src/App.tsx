@@ -6,38 +6,44 @@ import Forgot from "./pages/Forgot";
 import Confirm from "./pages/Confirm";
 import SignUp from "./pages/SignUp";
 import { CodePage } from "./pages/Code";
+import Home from "./pages/Home";
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
-    path:'/sign-in',
-    element:<SignIn/>
-
+    path: "/sign-in",
+    element: <SignIn />,
   },
   {
-    path:'sign-up',
-    element:<SignUp/>
+    path: "sign-up",
+    element: <SignUp />,
   },
   {
-    path:'reset',
-    element:<Reset/>
+    path: "reset",
+    element: <Reset />,
   },
   {
-    path:'forgot',
-    element:<Forgot/>
+    path: "forgot",
+    element: <Forgot />,
   },
   {
-    path:'confirm',
-    element:<Confirm/>
+    path: "confirm",
+    element: <Confirm />,
+  },
+  {
+    path: "/",
+    element: <Home />,
   },
   {
     path: "/code",
-    element: <CodePage></CodePage>
-  }
+    element: <CodePage></CodePage>,
+  },
 ]);
-function App(){
-  return(
+function App() {
+  return (
     <div>
       <RouterProvider router={router} />
+      <Toaster></Toaster>
     </div>
   );
 }
