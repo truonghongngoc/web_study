@@ -73,11 +73,11 @@ export const Layout5 = () => {
                   Read more
                 </Text>
                 <Image
-                  marginTop={"10px"}
+                  marginTop={"12px"}
                   marginLeft={"10px"}
-                  width={"22px"}
-                  height={"15px"}
-                  src={"src/image/vector_icon.png"}
+                  width={"20px"}
+                  height={"12px"}
+                  src={"src/assets/image_6.png"}
                 ></Image>
               </Box>
             </Box>
@@ -120,11 +120,11 @@ export const Layout5 = () => {
                   Read more
                 </Text>
                 <Image
-                  marginTop={"10px"}
+                  marginTop={"12px"}
                   marginLeft={"10px"}
-                  width={"22px"}
-                  height={"15px"}
-                  src={"src/image/vector_icon.png"}
+                  width={"20px"}
+                  height={"12px"}
+                  src={"src/assets/image_6.png"}
                 ></Image>
               </Box>
             </Box>
@@ -166,11 +166,11 @@ export const Layout5 = () => {
                   Read more
                 </Text>
                 <Image
-                  marginTop={"10px"}
+                  marginTop={"12px"}
                   marginLeft={"10px"}
-                  width={"22px"}
-                  height={"15px"}
-                  src={"src/image/vector_icon.png"}
+                  width={"20px"}
+                  height={"12px"}
+                  src={"src/assets/image_6.png"}
                 ></Image>
               </Box>
             </Box>

@@ -53,7 +53,9 @@ export const Layout4 = () => {
             alignItems={"center"}
             //  display={{xl:"flex",base:"block"}}
           >
-            <Box justifyContent={{ base: "space-around" }} display={"flex"}>
+            <Box
+           
+            justifyContent={{base: "space-around" }} display={"flex"}>
               <Image src="src/assets/a1.png"></Image>
               <Image src="src/assets/a2.png"></Image>
               <Image src="src/assets/a3.png"></Image>

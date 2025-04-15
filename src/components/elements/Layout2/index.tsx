@@ -44,7 +44,7 @@ export const Layout2 = () => {
           >
             <Box display={"flex"}>
               <Box>
-                <Image src="src/assets/8.png"></Image>
+                <Image src="src/assets/image_7.png"></Image>
               </Box>
               <Box>
                 <Text
@@ -64,7 +64,7 @@ export const Layout2 = () => {
 
             <Box display={"flex"} marginTop={"30px"}>
               <Box>
-                <Image src="src/assets/10.png"></Image>
+                <Image src="src/assets/image_5.png"></Image>
               </Box>
               <Box>
                 <Text

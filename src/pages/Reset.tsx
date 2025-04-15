@@ -1,9 +1,11 @@
 import { useCallback, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import * as yup from "yup";
 import "../index.css";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
+import axios from "axios";
+import { toaster } from "../components/ui/toaster";
 
 export type ErrorsFormValue = {
   [key: string]: {
@@ -12,7 +14,10 @@ export type ErrorsFormValue = {
 };
 export const schemaReset = yup.object().shape({
   password: yup.string().required(),
-  confirmPassword: yup.string().required(),
+  confirmPassword: yup
+    .string()
+    .required()
+    .oneOf([yup.ref("password")], "Mật khẩu xác nhận không khớp"),
 });
 type TResetFormValue = yup.InferType<typeof schemaReset>;
 export const defaultReset: TResetFormValue = {
@@ -21,6 +26,8 @@ export const defaultReset: TResetFormValue = {
 };
 export const Reset = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const [formValue, setFormValue] = useState(defaultReset);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
   const validation = useCallback(() => {
@@ -55,10 +62,23 @@ export const Reset = () => {
       confirmPassword: e.target.value,
     });
   }
-  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     if (validation()) {
-      navigate("/sign-in");
+      setIsLoading(true);
+      try {
+        await axios.patch("http://localhost:3001/auth/change-password", {
+          password: formValue.password,
+          token: searchParams.get("token"),
+        });
+        navigate("/sign-in");
+      } catch (error) {
+        toaster.create({
+          title: "Throw ",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
   }
   return (
@@ -95,7 +115,7 @@ export const Reset = () => {
             <Image
               marginTop={{ xl: "40px", base: "16px" }}
               marginLeft={{ base: "24px" }}
-              src="src/assets/logo"
+              src="src/assets/logo.png"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
@@ -155,6 +175,7 @@ export const Reset = () => {
                   height={"50px"}
                   marginTop={"50px"}
                   w={"full"}
+                  loading={isLoading}
                 >
                   Submit
                 </Button>

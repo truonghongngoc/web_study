@@ -4,6 +4,8 @@ import * as yup from "yup";
 import "../index.css";
 import { Checkbox } from "../components/ui/checkbox";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
+import { toaster } from "../components/ui/toaster";
+import axios from "axios";
 // import Button from "../components/elements/Button";
 export type ErrorsFormValue = {
   [key: string]: {
@@ -26,6 +28,7 @@ export const defaultSignup: TSignupFormValue = {
   password: "",
 };
 export const SignUp = () => {
+  const [isLoading, setIsLoading] = useState<boolean>();
   const [formValue, setFormValue] = useState(defaultSignup);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
   const navigate = useNavigate();
@@ -80,10 +83,32 @@ export const SignUp = () => {
       password: e.target.value,
     });
   }
-  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     if (validation()) {
-      navigate("/");
+      setIsLoading(true);
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/auth/sign-up",
+          {
+            password: formValue.password,
+            username: formValue.email,
+            name: formValue.name,
+          }
+        );
+
+        localStorage.setItem("access_token", response.data.access_token);
+
+        navigate("/");
+      } catch (error) {
+        toaster.create({
+          title: "Sign In Error",
+          type: "error",
+          description: "Unauthorized",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
   }
   return (
@@ -123,7 +148,7 @@ export const SignUp = () => {
               marginLeft={{ base: "24px" }}
               marginRight={"40px"}
               marginBottom={{ base: "16px" }}
-              src="src/assets/logo"
+              src="src/assets/logo.png"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
@@ -246,6 +271,7 @@ export const SignUp = () => {
                   marginTop={"50px"}
                   padding={{ base: "24px" }}
                   w={"full"}
+                  loading={isLoading}
                 >
                   Create my account
                 </Button>

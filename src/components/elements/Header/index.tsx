@@ -7,8 +7,17 @@ import {
   Portal,
   CloseButton,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const [accessToken, setAccessToken] = useState();
+
+  useEffect(() => {
+    setAccessToken(localStorage.getItem("access_token"));
+  }, []);
+
+  const navigate = useNavigate();
   return (
     <>
       <Box
@@ -110,29 +119,50 @@ export const Header = () => {
             // justifyContent={{ base: "space-betwee" }}
             // marginLeft={{ xl: "180px", base: "120px" }}
           >
-            <Link
-              maxWidth={{ xl: "80px", base: "30px" }}
-              height={{ xl: "40px", base: "30px" }}
-              bg={"#F5F7FA"}
-              borderRadius={"6px"}
-              justifyContent={"center"}
-              href="/sign-in"
-              color={"#4CAF4F"}
-            >
-              Login
-            </Link>
-            <Link
-              bg={"#4CAF4F"}
-              maxWidth={{ xl: "180px", base: "80px" }}
-              padding={"5px"}
-              justifyContent={"center"}
-              borderRadius={"6px"}
-              marginLeft={{ base: "15px" }}
-              href="/sign-up"
-              color={"white"}
-            >
-              Sign up
-            </Link>
+            {accessToken ? (
+              <Link
+                bg={"#4CAF4F"}
+                maxWidth={{ xl: "180px", base: "80px" }}
+                padding={"5px"}
+                justifyContent={"center"}
+                borderRadius={"6px"}
+                marginLeft={{ base: "15px" }}
+                color={"white"}
+                onClick={() => {
+                  localStorage.removeItem("access_token");
+
+                  navigate("/sign-in");
+                }}
+              >
+                Logout
+              </Link>
+            ) : (
+              <>
+                <Link
+                  maxWidth={{ xl: "80px", base: "30px" }}
+                  height={{ xl: "40px", base: "30px" }}
+                  bg={"#F5F7FA"}
+                  borderRadius={"6px"}
+                  justifyContent={"center"}
+                  href="/sign-in"
+                  color={"#4CAF4F"}
+                >
+                  Login
+                </Link>
+                <Link
+                  bg={"#4CAF4F"}
+                  maxWidth={{ xl: "180px", base: "80px" }}
+                  padding={"5px"}
+                  justifyContent={"center"}
+                  borderRadius={"6px"}
+                  marginLeft={{ base: "15px" }}
+                  href="/sign-up"
+                  color={"white"}
+                >
+                  Sign up
+                </Link>
+              </>
+            )}
           </Box>
           <Box>
             <Drawer.Root>

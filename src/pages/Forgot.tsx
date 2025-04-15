@@ -5,6 +5,8 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 import { Box, Button, Image, Text, Input } from "@chakra-ui/react";
+import axios from "axios";
+import { toaster } from "../components/ui/toaster";
 
 export type ErrorsFormValue = {
   [key: string]: {
@@ -20,6 +22,7 @@ export const defaultForgot: TForgotFormValue = {
 };
 export const Forgot = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const [formValue, setFormValue] = useState(defaultForgot);
   const [errors, setErrors] = useState<ErrorsFormValue>({});
 
@@ -49,10 +52,22 @@ export const Forgot = () => {
       email: e.target.value,
     });
   }
-  function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     if (validation()) {
-      navigate("/sign-in");
+      setIsLoading(true);
+      try {
+        await axios.post("http://localhost:3001/auth/forgot-password", {
+          email: formValue.email,
+        });
+        navigate("/confirm");
+      } catch (error) {
+        toaster.create({
+          title: "Throw ",
+        });
+      } finally {
+        setIsLoading(false);
+      }
     }
   }
 
@@ -92,7 +107,7 @@ export const Forgot = () => {
               marginRight={"40px"}
               marginLeft={{ base: "24px" }}
               marginBottom={{ base: "16px" }}
-              src="src/assets/logo"
+              src="src/assets/logo.png"
             ></Image>
           </Box>
           <Box display={{ xl: "none", base: "flex" }} justifyContent={"center"}>
@@ -147,6 +162,7 @@ export const Forgot = () => {
               color={"rgb(255, 255, 255)"}
               height={"50px"}
               borderRadius={"10px"}
+              loading={isLoading}
             >
               Submit
             </Button>

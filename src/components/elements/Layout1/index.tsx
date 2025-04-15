@@ -26,13 +26,13 @@ export const Layout1 = () => {
             justifyContent={"space-evenly"}
             bg={"white"}
           >
-            <Image src="src/assets/1.png"></Image>
-            <Image src="src/assets/2.png"></Image>
-            <Image src="src/assets/3.png"></Image>
-            <Image src="src/assets/4.png"></Image>
-            <Image src="src/assets/5.png"></Image>
-            <Image src="src/assets/6.png"></Image>
-            <Image src="src/assets/7.png"></Image>
+            <Image src="src/assets/a1.png"></Image>
+            <Image src="src/assets/a2.png"></Image>
+            <Image src="src/assets/a3.png"></Image>
+            <Image src="src/assets/a4.png"></Image>
+            <Image src="src/assets/a5.png"></Image>
+            <Image src="src/assets/a6.png"></Image>
+            <Image src="src/assets/a3.png"></Image>
           </Box>
         </Box>
         <Box bg={"white"} justifyContent={"center"}>
@@ -151,7 +151,7 @@ export const Layout1 = () => {
               width={"400px"}
               // marginLeft={{ xl: "170px" }}
               // height={{ xl: "300px", base: "200px" }}
-              src="src/assets/lock/mobile-login/pana.png"
+              src="src/assets/image_8.png"
             ></Image>
           </Box>
           <Box
